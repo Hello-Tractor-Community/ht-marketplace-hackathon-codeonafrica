@@ -1,8 +1,12 @@
-import React from 'react'
+import React, {useState} from 'react'
+
+
 
 const NavBar = () => {
   return (
-    <div>NavBar</div>
+    <div>
+        <img className='h-20 ' src="logo.svg" alt="logo" />
+    </div>
   )
 }
 
