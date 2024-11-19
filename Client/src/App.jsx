@@ -4,6 +4,7 @@ import Layout from './Layout/Layout'
 import SignUp from './Pages/SignUp'
 import Login from './Pages/Login'
 import HomePage from './Pages/HomePage'
+import Tractor from './Pages/Tractor'
 
 function App() {
   return (
@@ -13,6 +14,8 @@ function App() {
      <Route index element={<HomePage />} />
        <Route path="/signup" element={<SignUp />} />
        <Route path="/login" element={<Login />} />
+       <Route path="/tractor" element={<Tractor />} />
+
 
     </Route>
    </Routes>
