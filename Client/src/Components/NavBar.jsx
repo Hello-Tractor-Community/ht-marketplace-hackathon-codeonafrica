@@ -9,7 +9,7 @@ const NavBar = () => {
         <img className='h-20 ' src="logo.svg" alt="logo" />
 
         <div className=' w-1/3 flex items-center justify-around font-semibold'>
-         <Link to ="/tractors" className=''> Tractors </Link >
+         <Link to ="/tractors"> Tractors </Link >
          <Link to ="/equipments"> Equipments </Link >
          <Link to ="/about"> About </Link >
          <Link to ="/contact us"> Contact Us </Link >
