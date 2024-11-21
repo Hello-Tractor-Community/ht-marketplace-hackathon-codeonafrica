@@ -5,6 +5,7 @@ import SignUp from './Pages/SignUp'
 import Login from './Pages/Login'
 import HomePage from './Pages/HomePage'
 import Tractor from './Pages/Tractor'
+import TractorsPage from './Pages/TractorsPage'
 
 function App() {
   return (
@@ -15,6 +16,8 @@ function App() {
        <Route path="/signup" element={<SignUp />} />
        <Route path="/login" element={<Login />} />
        <Route path="/tractor" element={<Tractor />} />
+       <Route path="/tractors" element={<Tractor />} />
+       <Route path="/tractors/:type" element={<TractorsPage />} />
 
 
     </Route>

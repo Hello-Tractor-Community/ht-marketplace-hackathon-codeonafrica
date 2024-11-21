@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom'
 const NavBar = () => {
   return (
     <nav className='bg-white text-black flex items-center justify-between py-4 px-16'>
-        <img className='h-20 ' src="logo.svg" alt="logo" />
+        <img className='h-20 ' src="/logo.svg" alt="logo" />
 
         <div className=' w-1/3 flex items-center justify-around font-semibold'>
          <Link to ="/tractors"> Tractors </Link >
