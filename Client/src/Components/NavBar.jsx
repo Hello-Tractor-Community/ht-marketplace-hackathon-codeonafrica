@@ -19,8 +19,12 @@ const NavBar = () => {
 
         </div>
         <div className='space-x-4 '>
+          <Link to ="/signup">
             <button className=' bg-black text-white px-8 py-2 rounded-md font-semibold'> Sign up</button>
+            </Link>
+            <Link to="/login">
             <button className='text-black border-black bg-white border-2 px-8 py-2 rounded-md font-semibold'>Login</button>
+            </Link>
         </div>
     </nav>
   )

@@ -1,4 +1,5 @@
 import React,{useState} from 'react';
+import {Link} from "react-router-dom"
 
 const TractorsList = () => {
   // Example tractor data
@@ -126,8 +127,13 @@ const TractorsList = () => {
             <div className="p-4 flex justify-between item-center">
             
             <p className="text-gray-500 mt-2 ">{tractor.price}</p>
+            <div>
+              <Link to="/tractor">
+
             <button className="bg-black text-white text-xs hover:bg-[#ff481d] font-medium px-2 py-1 rounded" type="">View Seller</button>
-            
+            </Link>
+            </div>
+
             </div>
            
           </div>
