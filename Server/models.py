@@ -29,7 +29,11 @@ class Tractor(db.Model):
     brand_id = db.Column(db.Integer, db.ForeignKey('brand.id'), nullable=False)
     price = db.Column(db.Float, nullable=False)
     owner_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
-    image_url =db.Column(db.String(255), nullable=True)
+    image_url = db.Column(db.String(255), nullable=True)
+    location = db.Column(db.String(100), nullable=False)  
+    availability = db.Column(db.Boolean, nullable=False, default=True)  
+    mileage = db.Column(db.Integer, nullable=False) 
+
 
     # Back-populates relationships
     owner = db.relationship('User', back_populates='tractors')
