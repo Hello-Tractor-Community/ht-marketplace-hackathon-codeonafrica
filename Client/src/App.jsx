@@ -13,6 +13,9 @@ import TractorDealershipPage from './Pages/DealershipProfile';
 import AdminPage from './Pages/AdminPage';
 import ProtectedRoute from './Auth/ProtectedRoute';
 import NotFound from './Components/NotFound';
+import AddTractor from './Sellers/AddTractor'
+
+
 
 function App() {
   return (
@@ -32,6 +35,8 @@ function App() {
           <Route path="login" element={<Login />} />
           <Route path="tractor" element={<Tractor />} />
           <Route path="tractors" element={<TractorsPage />} />
+          <Route path="/tractors/:type" element={<TractorsPage />} />
+          <Route path="/add tractor" element={<AddTractor />} />
           <Route element={<ProtectedRoute />}>
           <Route path="dealership" element={<TractorDealershipPage />} />
           <Route path="seller" element={<SellerProfile />} />
@@ -47,6 +52,7 @@ function App() {
       </Routes>
     </BrowserRouter>
   );
+
 }
 
 export default App;

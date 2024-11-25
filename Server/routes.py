@@ -1,6 +1,6 @@
 from flask import Blueprint, request, jsonify
 from app import app, db, bcrypt
-from models import User
+from models import User, Tractor, Brand
 from firebase_admin import auth as firebase_auth
 
 routes = Blueprint("routes", __name__)
@@ -69,6 +69,35 @@ def login():
             "role": user.role
         }
     }), 200
+
+@app.route('/api/tractors', methods=['POST'])
+def add_tractor():
+    if 'image' in request.files:
+        image = request.files['image']
+        image_filename = secure_filename(image.filename)
+        image.save(f'./uploads/{image_filename}')
+    else:
+        image_filename = None
+
+    # Access other form data
+    name = request.form.get('name')
+    price = request.form.get('price')
+    location = request.form.get('location')
+    availability = request.form.get('availability')
+    fuel_type = request.form.get('fuel_type')
+    mileage = request.form.get('mileage')
+    size = request.form.get('size')
+    brand_id = request.form.get('brand_id')
+    owner_id = request.form.get('owner_id')
+
+    if not name or not price:
+        return {'error': 'Missing required fields'}, 400
+
+    # Your logic for adding the tractor to the database goes here
+
+    return {'message': 'Tractor added successfully'}
+
+
 
 
 @routes.route("/social-login", methods=["POST"])

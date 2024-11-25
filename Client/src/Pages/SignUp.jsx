@@ -5,6 +5,7 @@ import { auth, googleProvider } from "../../firebase";
 
 const Signup = () => {
   const navigate = useNavigate();
+
   const [formData, setFormData] = useState({
     username: "",
     email: "",
@@ -46,7 +47,6 @@ const Signup = () => {
         id_number: "",
         role: "",
       });
-
       navigate("/login");
     } catch (error) {
       console.error("Error during signup:", error);
@@ -68,13 +68,16 @@ const Signup = () => {
     } catch (error) {
       console.error("Error during Google signup:", error);
       setMessage(error.message || "An error occurred during Google signup.");
+
     }
   };
 
   return (
+
     <section className=" ">
       <div className="h-auto bg-gray-50 flex flex-col items-center justify-center px-6 py-8 mx-auto  lg:py-0">
         <div className="w-full bg-white my-4 rounded-lg shadow dark:border sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
+
           <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
             <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
               Create an account
@@ -85,6 +88,7 @@ const Signup = () => {
                 <label
                   htmlFor="username"
                   className=" mb-2 text-sm font-medium text-gray-900 dark:text-white"
+
                 >
                   Username
                 </label>
@@ -210,6 +214,16 @@ const Signup = () => {
                 Sign up with Google
               </button>
             </div>
+              <p className="text-sm text-gray-500 dark:text-gray-400">
+                Already have an account?{" "}
+                <a
+                  href="/login"
+                  className="font-medium text-primary-600 hover:underline dark:text-primary-500"
+                >
+                  Log In Here
+                </a>
+              </p>
+            </form>
 
             {message && (
               <p className="mt-4 text-sm font-medium text-green-500 dark:text-green-400">
