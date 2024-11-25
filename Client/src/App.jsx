@@ -7,12 +7,18 @@ import HomePage from './Pages/HomePage'
 import Tractor from './Pages/Tractor'
 import TractorsPage from './Pages/TractorsPage'
 import AddTractor from './Sellers/AddTractor'
+import AdminLayout from './Layout/AdminLayout'
 
 
 function App() {
   return (
    <BrowserRouter>
    <Routes>
+      {/*  */}
+   <Route path ="/admin" element={<AdminLayout/>} >
+   </Route>
+
+   {/* normal layout */}
     <Route path ="/" element={<Layout />} >
      <Route index element={<HomePage />} />
        <Route path="/signup" element={<SignUp />} />
@@ -20,9 +26,8 @@ function App() {
        <Route path="/tractor" element={<Tractor />} />
        <Route path="/tractors" element={<Tractor />} />
        <Route path="/tractors/:type" element={<TractorsPage />} />
-       <Route path="/add tractor" element={<AddTractor />} />
-
-
+        <Route path="/add tractor" element={<AddTractor />} />
+          
     </Route>
    </Routes>
    </BrowserRouter>

@@ -134,6 +134,11 @@ const TractorsList = () => {
             </Link>
             </div>
 
+
+           <div>
+            <button className="bg-black text-white text-xs hover:bg-[#ff481d] font-medium px-2 py-1 rounded" type="">Message Seller</button>
+            <button className="bg-black text-white text-xs hover:bg-[#ff481d] font-medium px-2 py-1 rounded" type="">View Seller</button>
+            </div>
             </div>
            
           </div>
