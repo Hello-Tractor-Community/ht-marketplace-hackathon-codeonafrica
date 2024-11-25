@@ -1,10 +1,17 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+ // Assuming the firebase.js file exports auth and googleProvider
+import { signInWithEmailAndPassword, signInWithPopup } from 'firebase/auth';
+import { auth, googleProvider } from '../../firebase';
+
 
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
+
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -12,26 +19,51 @@ const Login = () => {
     setError('');
 
     try {
-      const response = await fetch('http://127.0.0.1:5000/login', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ email, password }),
-      });
+      const response = await signInWithEmailAndPassword(auth, email, password);
+      const user = response.user;
+      const token = await user.getIdToken();
+      localStorage.setItem('userToken', token);  // Store token for session management
 
-      const data = await response.json();
-
-      if (response.ok) {
-        // Handle successful login (e.g., save token, redirect user)
-        console.log('Login successful:', data);
+      // Redirect based on the user's role (this assumes role info is stored in the user profile)
+      const role = user.displayName;  // Modify this logic to reflect how you store the role (could be in user metadata)
+      if (role === 'buyer') {
+        navigate('/buyer');
+      } else if (role === 'seller') {
+        navigate('/seller');
       } else {
-        // Handle errors from the API
-        setError(data.message || 'Login failed');
+        // Default redirect if role is undefined
+        navigate('/');
       }
     } catch (err) {
       console.error('Error logging in:', err);
-      setError('An error occurred. Please try again later.');
+      setError('Invalid email or password');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleGoogleLogin = async () => {
+    setLoading(true);
+    setError('');
+    try {
+      const result = await signInWithPopup(auth, googleProvider);
+      const user = result.user;
+      const token = await user.getIdToken();
+      localStorage.setItem('userToken', token);  // Store token for session management
+
+      // Redirect based on the user's role (this assumes role info is stored in the user profile)
+      const role = user.displayName;  // Modify this logic to reflect how you store the role
+      if (role === 'buyer') {
+        navigate('/buyer');
+      } else if (role === 'seller') {
+        navigate('/seller');
+      } else {
+        // Default redirect if role is undefined
+        navigate('/');
+      }
+    } catch (err) {
+      console.error('Error with Google login:', err);
+      setError('Google login failed');
     } finally {
       setLoading(false);
     }
@@ -86,7 +118,7 @@ const Login = () => {
                 {error && <p className="text-red-500 text-sm">{error}</p>}
                 <button
                   type="submit"
-                  className="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
+                  className="w-full text-white bg-[#ff481d] hover:bg-black/90 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
                   disabled={loading}
                 >
                   {loading ? 'Signing in...' : 'Sign in'}
@@ -101,6 +133,16 @@ const Login = () => {
                   </a>
                 </p>
               </form>
+
+              <button
+                onClick={handleGoogleLogin}
+                className="w-full text-gray-600 border border-300 bg-gray-50 flex items-center gap-2 justify-center hover:border-[#ff481d] focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-500 dark:hover:bg-blue-600 dark:focus:ring-blue-700"
+                disabled={loading}
+              >
+                <img src="/Google__G__logo.svg" alt="" />
+                {loading ? 'Signing in with Google...' : 'Sign in with Google'}
+              </button>
+
             </div>
           </div>
         </div>

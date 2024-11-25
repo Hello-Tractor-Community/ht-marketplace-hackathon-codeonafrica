@@ -1,8 +1,10 @@
 from flask import Blueprint, request, jsonify
 from app import app, db, bcrypt
 from models import User, Tractor, Brand
+from firebase_admin import auth as firebase_auth
 
-routes = Blueprint('routes', __name__)
+routes = Blueprint("routes", __name__)
+
 
 @routes.route('/signup', methods=['POST'])
 def signup():
@@ -98,5 +100,52 @@ def add_tractor():
 
 
 
+@routes.route("/social-login", methods=["POST"])
+def social_login():
+    data = request.json
+
+    # Get the Firebase ID token from the client
+    id_token = data.get("id_token")
+
+    if not id_token:
+        return jsonify({"error": "ID token is required"}), 400
+
+    try:
+        # Verify the ID token using Firebase Admin SDK
+        decoded_token = firebase_auth.verify_id_token(id_token)
+        firebase_uid = decoded_token["uid"]
+        email = decoded_token.get("email")
+        name = decoded_token.get("name")
+        picture = decoded_token.get("picture")
+
+        # Check if the user already exists
+        user = User.query.filter_by(email=email).first()
+
+        if not user:
+            # If user doesn't exist, create a new one
+            user = User(
+                username=name,
+                email=email,
+                password=None,  # Password not required for social login
+                phone_number=None,
+                id_number=None,
+                role="user",  # Default role
+            )
+            db.session.add(user)
+            db.session.commit()
+
+        return jsonify({
+            "message": "Login successful",
+            "user": {
+                "id": user.id,
+                "username": user.username,
+                "email": user.email,
+                "role": user.role,
+                "profile_picture": picture,
+            }
+        }), 200
+
+    except Exception as e:
+        return jsonify({"error": f"Invalid ID token: {str(e)}"}), 401
 # Register the Blueprint with the app
 app.register_blueprint(routes)
