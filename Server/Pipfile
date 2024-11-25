@@ -20,10 +20,12 @@ name = ""
 
 [packages]
 flask-sqlalchemy = {version = "*", index = ""}
-flask = {version = "*", index = ""}
+flask = "*"
 flask-bcrypt = "*"
 flask-jwt--extended = "*"
 flask-cors = "*"
+firebase-admin = "*"
+pyjwt = "*"
 
 [dev-packages]
 

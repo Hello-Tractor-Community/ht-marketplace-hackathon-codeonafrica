@@ -4,9 +4,15 @@ from flask_migrate import Migrate
 from flask_bcrypt import Bcrypt
 
 from flask_cors import CORS
+import firebase_admin
+from firebase_admin import credentials, auth
 
 # Initialize Flask app
 app = Flask(__name__)
+# Initialize Firebase Admin SDK
+cred = credentials.Certificate("path/to/your-firebase-adminsdk.json")
+firebase_admin.initialize_app(cred)
+
 
 # Apply CORS to the app
 CORS(app)
