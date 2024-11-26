@@ -26,6 +26,7 @@ flask-jwt--extended = "*"
 flask-cors = "*"
 firebase-admin = "*"
 pyjwt = "*"
+firebase = "*"
 
 [dev-packages]
 
