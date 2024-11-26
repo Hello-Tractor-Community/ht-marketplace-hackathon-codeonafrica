@@ -10,8 +10,8 @@ from firebase_admin import credentials, auth
 # Initialize Flask app
 app = Flask(__name__)
 # Initialize Firebase Admin SDK
-cred = credentials.Certificate("path/to/your-firebase-adminsdk.json")
-firebase_admin.initialize_app(cred)
+# cred = credentials.Certificate("path/to/your-firebase-adminsdk.json")
+# firebase_admin.initialize_app(cred)
 
 
 # Apply CORS to the app

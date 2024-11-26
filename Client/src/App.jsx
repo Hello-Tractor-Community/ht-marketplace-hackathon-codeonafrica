@@ -14,6 +14,10 @@ import AdminPage from './Pages/AdminPage';
 import ProtectedRoute from './Auth/ProtectedRoute';
 import NotFound from './Components/NotFound';
 import AddTractor from './Sellers/AddTractor'
+import Dealerships from './Components/HomeComponents/Dealerships';
+import AddDealership from './Admin/AddDealership';
+import AddEquipment from './Admin/AddEquipment';
+import AddBrand from './Admin/AddBrand';
 
 
 
@@ -24,7 +28,12 @@ function App() {
         {/* Admin routes */}
         <Route element={<ProtectedRoute />}>
           <Route path="/admin" element={<AdminLayout />}>
+          <Route path ="add-tractor" element={<AddTractor />}  />
+          <Route path="add-dealership" element={<AddDealership />} />
+          <Route path="add-equipment" element={<AddEquipment />} />
+          <Route path ="add-brand" element={ <AddBrand />} />
             <Route index element={<AdminPage />} />
+
           </Route>
         </Route>
 
@@ -36,7 +45,7 @@ function App() {
           <Route path="tractor" element={<Tractor />} />
           <Route path="tractors" element={<TractorsPage />} />
           <Route path="/tractors/:type" element={<TractorsPage />} />
-          <Route path="/add tractor" element={<AddTractor />} />
+          <Route path="/add-tractor" element={<AddTractor />} />
           <Route element={<ProtectedRoute />}>
           <Route path="dealership" element={<TractorDealershipPage />} />
           <Route path="seller" element={<SellerProfile />} />
